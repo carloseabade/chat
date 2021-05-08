@@ -19,7 +19,7 @@ Edit the _./public/index.html_ file, on line _60_, and change the URL to _http:/
 
 ## Start the application
 ```
-node src/server.js
+node backend/index.js
 ```
 
 ## Access the web page on _http://localhost:3000/_
