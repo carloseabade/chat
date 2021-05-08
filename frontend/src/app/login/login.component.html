@@ -1,16 +1,15 @@
 <div class="login-box">
   <h2>Guess Who Am I</h2>
-  <form>
+  <form id="playersForm">
     <div class="user-box">
-      <input type="text" name="" required="">
+      <input type="text" id="userLogin" name="username">
       <label>Apelido do Jogador</label>
     </div>
-    <a href="#">
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-      Logar
-    </a>
+    <nav>
+      <a [routerLink] = "'chat'" routerLinkActive="active">
+        <span></span><span></span><span></span><span></span>
+        Logar
+      </a>
+    </nav>
   </form>
 </div>
