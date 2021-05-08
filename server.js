@@ -16,6 +16,7 @@ app.use('/', (req, res) => {
 
 let users = {};
 
+// When a user connects, stores the new connected user, and send the new array to all users, including the recent connected user itself
 io.on('connection', socket => {
   console.log(`Socket conectado: [${socket.handshake.query.author}] - ${socket.id}`);
   users[socket.id] = socket.handshake.query.author;
@@ -23,6 +24,7 @@ io.on('connection', socket => {
   socket.emit('connectedUsers', users);
   socket.broadcast.emit('connectedUsers', users);
 
+  // When a user sends a message, send the message only to the selected users
   socket.on('sendMessage', data => {
     let users = data.users
     delete data.users
@@ -34,6 +36,7 @@ io.on('connection', socket => {
     }
   });
 
+  // When a user disconnects, remove the user from the users array, and send the new array to all other users
   socket.on('disconnect', () => {
     delete users[socket.id];
     socket.broadcast.emit('connectedUsers', users);
