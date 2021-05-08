@@ -24,10 +24,8 @@ io.on('connection', socket => {
   socket.broadcast.emit('connectedUsers', users);
 
   socket.on('sendMessage', data => {
-    console.log(data)
     let users = data.users
     delete data.users
-    console.log(data, users)
 
     for (const id in users) {
       if (users.hasOwnProperty(id)) {
