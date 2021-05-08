@@ -1,12 +1,8 @@
-<p>
-  chat works!
-</p>
-<div id="chat-container">
-  <form id="chat">
-    <div class="messages"></div>
-    <input type="text" id="Message" name="message" placeholder="Digite sua mensagem">
-    <button type="submit">Enviar</button>
-  </form>
-</div>
-<div id="users-container">
+<div id="box-container">
+  <div class="players">
+    <app-players-list></app-players-list>
+  </div>
+  <div class="chat">
+    <app-chat-detail></app-chat-detail>
+  </div>
 </div>
