@@ -1,0 +1,17 @@
+body {
+  margin:0;
+  padding:0;
+  font-family: sans-serif;
+  background: linear-gradient(#141e30, #243b55);
+}
+
+.logo {
+  width:"256";
+  height:"256";
+}
+
+#welcoming {
+  text-align: center;
+  border-radius: 30px;
+  border-style: groove;
+}
