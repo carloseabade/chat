@@ -57,7 +57,7 @@
         $('#chat-container').css("visibility", "visible");
 
         var author = $('input[name=username]').val();
-        socket = io('http://effd198a9159.ngrok.io', { query: `author=${author}` });
+        socket = io('https://abade-chat-who-am-i.herokuapp.com/', { query: `author=${author}` });
 
         socket.on('connectedUsers', function (users) {
           $('#users-container').empty()
