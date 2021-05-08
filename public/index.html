@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat</title>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+    integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"
+    integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA=="
+    crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div id="login-container">
+    <form id="login">
+      <input type="text" id="userLogin" name="username" placeholder="Digite seu usuário">
+      <button type="submit">Logar</button>
+    </form>
+  </div>
+  <div id="chat-container">
+    <form id="chat">
+      <div class="messages"></div>
+      <input type="text" id="Message" name="message" placeholder="Digite sua mensagem">
+      <button type="submit">Enviar</button>
+    </form>
+  </div>
+  <div id="users-container">
+  </div>
+
+  <script type="text/javascript">
+    document.getElementById("userLogin").focus();
+
+    var socket = null;
+
+    function renderUser(id, name) {
+      $('#users-container').append(`<div><input type="checkbox" id="${id}" name="${id}" value="${name}"><label for="${id}">${name}</label></div>`);
+    }
+
+    function renderMessage(message) {
+      $('.messages').append('<div class="message"><strong>' + message.author + '</strong>: ' + message.message + '</div>');
+    }
+
+    $('#login').submit(function (event) {
+      var author = $('input[name=username]').val();
+
+      if (author.length) {
+        event.preventDefault();
+
+        $('#login-container').css("visibility", "hidden");
+        $('#chat-container').css("visibility", "visible");
+
+        var author = $('input[name=username]').val();
+        socket = io('http://effd198a9159.ngrok.io', { query: `author=${author}` });
+
+        socket.on('connectedUsers', function (users) {
+          $('#users-container').empty()
+          for (var id in users) {
+            if (users.hasOwnProperty(id)) {
+              renderUser(id, users[id]);
+            }
+          }
+        });
+
+        socket.on('previousMessages', function (messages) {
+          for (message of messages) {
+            renderMessage(message);
+          }
+        });
+
+        socket.on('receivedMessage', function (message) {
+          renderMessage(message);
+        });
+
+        document.getElementById("Message").focus();
+      } else {
+        alert('Preencha o seu usuário para logar');
+      }
+    });
+
+    $('#chat').submit(function (event) {
+      event.preventDefault();
+
+      var author = $('input[name=username]').val();
+      var message = $('input[name=message]').val();
+
+      if (author.length && message.length) {
+        var checkedUsers = {};
+
+        var checkboxElements = $('#users-container > div').children('input')
+        for (let i = 0; i < checkboxElements.length; i++) {
+          if(checkboxElements[i].checked) checkedUsers[checkboxElements[i].id] = checkboxElements[i].value;
+        }
+
+        var messageObject = {
+          author: author,
+          message: message,
+          users: checkedUsers
+        };
+
+        renderMessage(messageObject);
+
+        socket.emit('sendMessage', messageObject);
+        console.log('Mensagem enviada');
+        $('input[name=message]').val('');
+        document.getElementById("Message").focus();
+      } else {
+        alert('Preencha a sua mensagem');
+      }
+    });
+  </script>
+</body>
+
+</html>
