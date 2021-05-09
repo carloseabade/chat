@@ -1,0 +1,35 @@
+#box-container {
+  display: inline-flex;
+  justify-content: start;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+.players {
+  top: 13vh;
+  left: 8em;
+  width: 12em;
+  padding-left: 1em;
+  padding-top: 1em;
+  padding-bottom: 2em;
+  padding-right: 1em;
+  background: #141e30d2;
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0,0,0,0.7);
+  border-radius: 10px;
+}
+
+.chat {
+  top: 13vh;
+  left: 8em;
+  width: 15em;
+  margin-left: 0.5em;
+  padding-left: 1em;
+  padding-top: 1em;
+  padding-bottom: 1em;
+  padding-right: 30em;
+  background: rgba(0,0,0,.5);
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0,0,0,.6);
+  border-radius: 20px;
+}

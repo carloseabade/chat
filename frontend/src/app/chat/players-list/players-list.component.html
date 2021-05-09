@@ -1,0 +1,14 @@
+  <article *ngFor="let player of players">
+    <input
+      type="checkbox"
+      name="{{ player.name }}"
+      (change)="player.checked = !player.checked"
+      [checked]="player.checked"
+    />
+    <div>
+      <span>
+          {{ player.name }}
+      </span>
+    </div>
+  </article>
+
