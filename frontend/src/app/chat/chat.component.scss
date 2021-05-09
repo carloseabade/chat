@@ -1,8 +1,5 @@
 #box-container {
   display: inline-flex;
-  justify-content: start;
-  flex-direction: row;
-  flex-wrap: nowrap;
 }
 
 .players {
@@ -22,11 +19,11 @@
 .chat {
   top: 13vh;
   left: 8em;
-  width: 15em;
+  width: 45em;
   margin-left: 0.5em;
   padding-left: 1em;
   padding-top: 1em;
-  padding-bottom: 1em;
+  padding-bottom: 7em;
   padding-right: 30em;
   background: rgba(0,0,0,.5);
   box-sizing: border-box;
