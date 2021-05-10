@@ -2,10 +2,10 @@
   <h2>Guess Who Am I</h2>
   <form id="playersForm">
     <div class="user-box">
-      <input type="text" id="userLogin" name="username" placeholder="Player's nickname">
+      <input [(ngModel)]="playersNickname" type="text" id="userLogin" name="username" placeholder="Player's nickname">
     </div>
     <nav>
-      <a [routerLink] = "'chat'" routerLinkActive="active" (click)="login()">
+      <a (click)="login()">
         <span></span><span></span><span></span><span></span>
         Login
       </a>
