@@ -24,6 +24,10 @@ io.on('connection', socket => {
   socket.emit('connectedUsers', users);
   socket.broadcast.emit('connectedUsers', users);
 
+  socket.on('login', data => {
+    console.log(data.nickname)
+  });
+
   // When a user sends a message, send the message only to the selected users
   socket.on('sendMessage', data => {
     let users = data.users
@@ -44,4 +48,6 @@ io.on('connection', socket => {
   });
 });
 
-server.listen(process.env.PORT || 5000);
+server.listen(process.env.PORT || 5000, () => {
+  console.log(`Node.js server listening on port ${process.env.PORT || 5000}`)
+});
